@@ -27,6 +27,11 @@ I recommend regularly filing the notes into their own month and year folders.
 Be careful not to remove the latest notes from the repository root folder
 if you want it to carry over the longer term goals section.
 
+You will need the `## Goals for other days this week or later` and the 
+`<!--- END OF GOALS SECTION -->` section delimiters to keep carrying over 
+the previous long term goals section.
+
+
 ### Current projects lists
 
 The `current_projs_lists.md` file is an on-going file of current responsibilities. 

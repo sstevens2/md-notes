@@ -16,16 +16,11 @@ def usage():
 			a new daily notes file with today's date. If one exists you can add \
 			an arg to name the new file.")
 
-if len(sys.argv) != 1:
-	usage()
-	sys.exit(2)
-
-
 # Get the author from the config file
 def getConfig():
 	with open('config', 'r') as cf:
 		 settings = cf.readlines()
-		 auth = settings[0].split('name=')[1]
+		 auth = settings[0].split('name=')[1].rstrip()
 		 edit = settings[1].split('editor=')[1].split("#")[0].rstrip()
 	return auth, edit
 
@@ -46,26 +41,18 @@ def carryover():
 		'<!--- END OF GOALS SECTION -->')[0]
 		return lnitems
 
-def main():
-	# setup notes variables
-	now = datetime.datetime.now()
-	tdate = '{0}-{1}-{2}'.format(now.year, str(now.month).zfill(2), str(now.day).zfill(2))
-	author, editor = getConfig()
-	outname = '{0}-dailynotes.md'.format(tdate)
-	
-	# check if notes for today already exist
-	exists = os.path.isfile(outname)
+def checkExist(outn):
+	exists = os.path.isfile(outn)
 	if exists:
 		print('Daily notes for this already exist. Cannot overwrite.')
 		sys.exit(2)
 	else:
-		print('New daily notes called\n{}'.format(outname))
-	
-	
-	# write output to file
-	with open(outname, 'w') as f:
+		print('New daily notes called\n{}'.format(outn))
+
+def writeOutput(outn, auth, td):
+	with open(outn, 'w') as f:
 		#Writing yaml header
-		f.write('---\nauthor: {0}\ndate: {1}\n---\n\n\n\n'.format(author, tdate))
+		f.write('---\nauthor: {0}\ndate: {1}\n---\n\n\n\n'.format(auth, td))
 		# Writing main text
 		f.write('## Goals for today\n\n\n\n')
 		f.write('## Goals for other days this week or later')
@@ -77,7 +64,24 @@ def main():
 		f.write('<!--- END OF GOALS SECTION -->\n\n\n')
 		f.write('## Other notes / Links to other notes\n\n\n\n')
 		f.write('### Notes from work\n\n\n\n')
+
+def main():
+	# check arguments
+	if len(sys.argv) != 1:
+		usage()
+		sys.exit(2)
 	
+	# setup notes variables
+	now = datetime.datetime.now()
+	tdate = '{0}-{1}-{2}'.format(now.year, str(now.month).zfill(2), str(now.day).zfill(2))
+	author, editor = getConfig()
+	outname = '{0}-dailynotes.md'.format(tdate)
+	
+	# check if notes for today already exist
+	checkExist(outname)	
+	
+	# write output to file
+	writeOutput(outname, author, tdate)	
 	
 	# This will only work with bbedit installed
 	if editor != 'None':
