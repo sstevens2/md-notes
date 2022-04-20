@@ -22,11 +22,12 @@ if len(sys.argv) != 1:
 
 
 # Get the author from the config file
-def getAuthor():
+def getConfig():
 	with open('config', 'r') as cf:
-		 configfile = cf.read()
-		 auth = configfile.split('name=')[1]
-	return auth
+		 settings = cf.readlines()
+		 auth = settings[0].split('name=')[1]
+		 edit = settings[1].split('editor=')[1].split("#")[0].rstrip()
+	return auth, edit
 
 # Get last notes and carry over the long term goals list
 def carryover():
@@ -49,7 +50,7 @@ def main():
 	# setup notes variables
 	now = datetime.datetime.now()
 	tdate = '{0}-{1}-{2}'.format(now.year, str(now.month).zfill(2), str(now.day).zfill(2))
-	author = getAuthor()
+	author, editor = getConfig()
 	outname = '{0}-dailynotes.md'.format(tdate)
 	
 	# check if notes for today already exist
@@ -79,7 +80,8 @@ def main():
 	
 	
 	# This will only work with bbedit installed
-	os.system('bbedit {}'.format(outname))
+	if editor != 'None':
+		os.system(f'{editor} {outname}')
 
 
 if __name__ == "__main__":
