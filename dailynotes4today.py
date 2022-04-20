@@ -21,7 +21,12 @@ if len(sys.argv) != 1:
 	sys.exit(2)
 
 
-author = "Sarah Stevens"
+# Get the author from the config file
+def getAuthor():
+	with open('config', 'r') as cf:
+		 configfile = cf.read()
+		 auth = configfile.split('name=')[1]
+	return auth
 
 # Get last notes and carry over the long term goals list
 def carryover():
@@ -43,7 +48,7 @@ def carryover():
 
 now = datetime.datetime.now()
 tdate = '{0}-{1}-{2}'.format(now.year, str(now.month).zfill(2), str(now.day).zfill(2))
-
+author = getAuthor()
 
 outname = '{0}-dailynotes.md'.format(tdate)
 exists = os.path.isfile(outname)
