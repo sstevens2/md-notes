@@ -23,6 +23,10 @@ copy over any notes for in the "## Goals for other days this week or later" sect
 If there is no previous notes document in the root of the repo, it will use
 the `template-dailynotes.md` file as the base document.
 
+I recommend regularly filing the notes into their own month and year folders.
+Be careful not to remove the latest notes from the repository root folder
+if you want it to carry over the longer term goals section.
+
 ### Current projects lists
 
 The `current_projs_lists.md` file is an on-going file of current responsibilities. 
