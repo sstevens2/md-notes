@@ -5,7 +5,9 @@ Created by [Sarah Stevens](https://github.com/sstevens2/)
 
 ## Setup
 
-- Update the `config` file to say your name
+- Update the `config` file include:
+	+ your name
+	+ favorite command line text editor (leave as None if you don't want it to open the new daily notes in your favorite text editor)
 - Run `pip install -r requirements.txt` to install the required packages or `conda create --name <env> --file requirements.txt` to create a conda environment.
 
 ## Usage
