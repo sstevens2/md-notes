@@ -44,40 +44,45 @@ def carryover():
 		'## Goals for other days this week or later')[1].split(  \
 		'<!--- END OF GOALS SECTION -->')[0]
 		return lnitems
+
+def main():
+	# setup notes variables
+	now = datetime.datetime.now()
+	tdate = '{0}-{1}-{2}'.format(now.year, str(now.month).zfill(2), str(now.day).zfill(2))
+	author = getAuthor()
+	outname = '{0}-dailynotes.md'.format(tdate)
 	
-
-now = datetime.datetime.now()
-tdate = '{0}-{1}-{2}'.format(now.year, str(now.month).zfill(2), str(now.day).zfill(2))
-author = getAuthor()
-
-outname = '{0}-dailynotes.md'.format(tdate)
-exists = os.path.isfile(outname)
-if exists:
-	print('Daily notes for this already exist. Cannot overwrite.')
-	sys.exit(2)
-else:
-	print('New daily notes called\n{}'.format(outname))
-
-## option to specify file to write to??? See if you need this option?
-
-## Maybe option for making meeting notes template??? maybe with google doc option (if I could figure out API)
-
-with open(outname, 'w') as f:
-	#Writing yaml header
-	f.write('---\nauthor: {0}\ndate: {1}\n---\n\n\n\n'.format(author, tdate))
-	# Writing main text
-	f.write('## Goals for today\n\n\n\n')
-	f.write('## Goals for other days this week or later')
-	carry = carryover()
-	if carry == '':
-		f.write('\n')
+	# check if notes for today already exist
+	exists = os.path.isfile(outname)
+	if exists:
+		print('Daily notes for this already exist. Cannot overwrite.')
+		sys.exit(2)
 	else:
-		f.write(carry)
-	f.write('<!--- END OF GOALS SECTION -->\n\n\n')
-	f.write('## Other notes / Links to other notes\n\n\n\n')
-	f.write('### Notes from work\n\n\n\n')
+		print('New daily notes called\n{}'.format(outname))
+	
+	
+	# write output to file
+	with open(outname, 'w') as f:
+		#Writing yaml header
+		f.write('---\nauthor: {0}\ndate: {1}\n---\n\n\n\n'.format(author, tdate))
+		# Writing main text
+		f.write('## Goals for today\n\n\n\n')
+		f.write('## Goals for other days this week or later')
+		carry = carryover()
+		if carry == '':
+			f.write('\n')
+		else:
+			f.write(carry)
+		f.write('<!--- END OF GOALS SECTION -->\n\n\n')
+		f.write('## Other notes / Links to other notes\n\n\n\n')
+		f.write('### Notes from work\n\n\n\n')
+	
+	
+	# This will only work with bbedit installed
+	os.system('bbedit {}'.format(outname))
 
 
-# This will only work with bbedit installed
-os.system('bbedit {}'.format(outname))
+if __name__ == "__main__":
+	main()
+
 
