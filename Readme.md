@@ -20,6 +20,8 @@ python dailynotes4today.py
 ```
 This script will make a a new notes file for today and 
 copy over any notes for in the "## Goals for other days this week or later" section.
+If there is no previous notes document in the root of the repo, it will use
+the `template-dailynotes.md` file as the base document.
 
 ### Current projects lists
 
