@@ -39,7 +39,8 @@ The `current_projs_lists.md` file is an on-going file of current responsibilitie
 
 ## Todo items
 
-- add in scripts to parse weekly notes into single result file
+- container environment (started)
+- add in scripts to parse weekly notes into single result file (started)
 - option to specify file to write to??? See if you need this option?
 - Maybe option for making meeting notes template??? maybe with google doc option (if I could figure out API)
 
