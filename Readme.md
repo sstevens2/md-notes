@@ -6,7 +6,7 @@ Created by [Sarah Stevens](https://github.com/sstevens2/)
 ## Setup
 
 - Update the `config` file to say your name
-- Run `pip install -r requirements.txt` to have all the required packages
+- Run `pip install -r requirements.txt` to install the required packages or `conda create --name <env> --file requirements.txt` to create a conda environment.
 
 ## Usage
 
